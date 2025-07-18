@@ -1,0 +1,19 @@
+Stage,Topic,Duration,Key_Skills,Resources
+Beginner,Installation & Setup,1 day,"Go installation, environment setup, first program","Official Go docs, installation guide"
+Beginner,Basic Syntax,2-3 days,"Package declarations, imports, basic structure","Go Tour, basic tutorials"
+Beginner,Variables & Data Types,3-4 days,"int, string, bool, float, constants, variables","Go by Example, practice exercises"
+Beginner,Control Structures,2-3 days,"if/else, for loops, switch statements","Programming exercises, control flow"
+Beginner,Functions,3-4 days,"Function definition, parameters, return values","Function examples, practical coding"
+Beginner,Arrays & Slices,2-3 days,"Array operations, slice manipulation",Data structure tutorials
+Beginner,Maps & Structs,3-4 days,"Map operations, struct creation and methods",Advanced data structures
+Intermediate,Pointers,2-3 days,"Pointer basics, memory references","Pointer tutorials, memory management"
+Intermediate,Methods & Interfaces,4-5 days,"Method receivers, interface implementation",OOP concepts in Go
+Intermediate,Error Handling,2-3 days,"Error types, error handling patterns",Error handling best practices
+Intermediate,Packages & Modules,3-4 days,"Module creation, dependency management","Module documentation, package management"
+Intermediate,Testing,2-3 days,"Unit testing, test coverage","Testing frameworks, TDD"
+Intermediate,Concurrency (Goroutines & Channels),5-7 days,"Goroutines, channels, select statements","Concurrency patterns, practical examples"
+Advanced,Web Development,7-10 days,"HTTP servers, REST APIs, frameworks","Web development tutorials, frameworks"
+Advanced,Database Integration,3-5 days,"SQL integration, ORM usage","Database tutorials, integration guides"
+Advanced,Microservices,5-7 days,"Service communication, message queues",Microservices architecture guides
+Advanced,Cloud Deployment,3-5 days,"Docker, Kubernetes, cloud platforms","DevOps tutorials, deployment guides"
+Advanced,Best Practices,2-3 days,"Code organization, performance optimization","Go style guides, performance tips"

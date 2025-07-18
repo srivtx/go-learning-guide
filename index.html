@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Go - Interactive Guide for Beginners</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🐹 Learn Go Programming</h1>
+            <p>An interactive guide for beginners to master Go programming</p>
+        </header>
+
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="getting-started">Getting Started</button>
+            <button class="tab-btn" data-tab="basic-syntax">Basic Syntax</button>
+            <button class="tab-btn" data-tab="code-examples">Code Examples</button>
+            <button class="tab-btn" data-tab="roadmap">Roadmap</button>
+            <button class="tab-btn" data-tab="practice">Practice</button>
+        </nav>
+
+        <main class="main-content">
+            <!-- Getting Started Tab -->
+            <div id="getting-started" class="tab-content active">
+                <h2>Getting Started with Go</h2>
+                <p>Welcome to Go! Let's get you set up and running with your first Go program.</p>
+                
+                <div class="installation-section">
+                    <h3>Installation Instructions</h3>
+                    <div class="os-tabs">
+                        <button class="os-tab active" data-os="windows">Windows</button>
+                        <button class="os-tab" data-os="mac">Mac</button>
+                        <button class="os-tab" data-os="linux">Linux</button>
+                    </div>
+                    
+                    <div class="os-content">
+                        <div id="windows" class="os-instructions active">
+                            <pre><code>1. Download Go from https://golang.org/dl/
+2. Run the MSI installer
+3. Add Go to your PATH environment variable
+4. Verify with: go version</code></pre>
+                        </div>
+                        <div id="mac" class="os-instructions">
+                            <pre><code>1. Download Go from https://golang.org/dl/
+2. Run the PKG installer
+3. Add /usr/local/go/bin to your PATH
+4. Verify with: go version</code></pre>
+                        </div>
+                        <div id="linux" class="os-instructions">
+                            <pre><code>1. Download Go tarball from https://golang.org/dl/
+2. Extract to /usr/local: sudo tar -C /usr/local -xzf go1.x.x.linux-amd64.tar.gz
+3. Add to PATH: export PATH=$PATH:/usr/local/go/bin
+4. Verify with: go version</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hello-world-section">
+                    <h3>Your First Go Program</h3>
+                    <p>Let's start with the classic "Hello, World!" program:</p>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span>hello.go</span>
+                            <button class="copy-btn" data-copy="hello-world">Copy</button>
+                        </div>
+                        <pre><code id="hello-world">package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}</code></pre>
+                    </div>
+                    <div class="explanation">
+                        <h4>Explanation:</h4>
+                        <ul>
+                            <li><code>package main</code> - Every Go program starts with a package declaration</li>
+                            <li><code>import "fmt"</code> - Imports the fmt package for formatted I/O</li>
+                            <li><code>func main()</code> - The main function is the entry point of the program</li>
+                            <li><code>fmt.Println()</code> - Prints text to the console</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Basic Syntax Tab -->
+            <div id="basic-syntax" class="tab-content">
+                <h2>Basic Go Syntax</h2>
+                <p>Learn the fundamental syntax elements of Go programming.</p>
+                
+                <div class="syntax-examples">
+                    <div class="syntax-example">
+                        <h3>Variables and Constants</h3>
+                        <div class="code-example">
+                            <div class="code-header">
+                                <span>variables.go</span>
+                                <button class="copy-btn" data-copy="variables-code">Copy</button>
+                            </div>
+                            <pre><code id="variables-code">package main
+
+import "fmt"
+
+func main() {
+    // Variable declarations
+    var name string = "Go"
+    age := 25 // Short declaration
+    
+    // Constants
+    const pi = 3.14159
+    
+    fmt.Println(name, age, pi)
+}</code></pre>
+                        </div>
+                        <div class="explanation">
+                            <p>Go supports both explicit and implicit variable declarations. Use 'var' for explicit typing or ':=' for type inference.</p>
+                        </div>
+                    </div>
+
+                    <div class="syntax-example">
+                        <h3>Functions</h3>
+                        <div class="code-example">
+                            <div class="code-header">
+                                <span>functions.go</span>
+                                <button class="copy-btn" data-copy="functions-code">Copy</button>
+                            </div>
+                            <pre><code id="functions-code">package main
+
+import "fmt"
+
+// Function with parameters and return type
+func add(a, b int) int {
+    return a + b
+}
+
+// Function returning multiple values
+func divide(a, b float64) (float64, error) {
+    if b == 0 {
+        return 0, fmt.Errorf("division by zero")
+    }
+    return a / b, nil
+}
+
+func main() {
+    result := add(5, 3)
+    fmt.Println("Sum:", result)
+    
+    quotient, err := divide(10, 2)
+    if err != nil {
+        fmt.Println("Error:", err)
+    } else {
+        fmt.Println("Quotient:", quotient)
+    }
+}</code></pre>
+                        </div>
+                        <div class="explanation">
+                            <p>Functions in Go can return multiple values, commonly used for error handling. Function parameters and return types are explicitly declared.</p>
+                        </div>
+                    </div>
+
+                    <div class="syntax-example">
+                        <h3>Control Structures</h3>
+                        <div class="code-example">
+                            <div class="code-header">
+                                <span>control.go</span>
+                                <button class="copy-btn" data-copy="control-code">Copy</button>
+                            </div>
+                            <pre><code id="control-code">package main
+
+import "fmt"
+
+func main() {
+    // If-else statement
+    x := 10
+    if x > 5 {
+        fmt.Println("x is greater than 5")
+    } else {
+        fmt.Println("x is 5 or less")
+    }
+    
+    // For loop
+    for i := 0; i < 3; i++ {
+        fmt.Printf("Count: %d\n", i)
+    }
+    
+    // Range loop
+    numbers := []int{1, 2, 3, 4, 5}
+    for index, value := range numbers {
+        fmt.Printf("Index: %d, Value: %d\n", index, value)
+    }
+    
+    // Switch statement
+    day := "Monday"
+    switch day {
+    case "Monday":
+        fmt.Println("Start of the work week")
+    case "Friday":
+        fmt.Println("TGIF!")
+    default:
+        fmt.Println("Another day")
+    }
+}</code></pre>
+                        </div>
+                        <div class="explanation">
+                            <p>Go has familiar control structures but with Go-specific syntax. The 'range' keyword is powerful for iterating over collections.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Examples Tab -->
+            <div id="code-examples" class="tab-content">
+                <h2>Practical Code Examples</h2>
+                <p>Explore practical Go code examples to deepen your understanding.</p>
+                
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-header" data-toggle="structs-example">
+                            <h3>Structs and Methods</h3>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div id="structs-example" class="example-content">
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span>structs.go</span>
+                                    <button class="copy-btn" data-copy="structs-code">Copy</button>
+                                </div>
+                                <pre><code id="structs-code">package main
+
+import "fmt"
+
+type Person struct {
+    Name string
+    Age  int
+}
+
+// Method with receiver
+func (p Person) Greet() string {
+    return fmt.Sprintf("Hello, I'm %s and I'm %d years old", p.Name, p.Age)
+}
+
+// Method with pointer receiver
+func (p *Person) HaveBirthday() {
+    p.Age++
+}
+
+func main() {
+    person := Person{Name: "Alice", Age: 30}
+    fmt.Println(person.Greet())
+    
+    person.HaveBirthday()
+    fmt.Println(person.Greet())
+}</code></pre>
+                            </div>
+                            <div class="explanation">
+                                <p>Structs in Go are like classes in other languages. Methods can have value or pointer receivers.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header" data-toggle="slices-example">
+                            <h3>Arrays and Slices</h3>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div id="slices-example" class="example-content">
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span>slices.go</span>
+                                    <button class="copy-btn" data-copy="slices-code">Copy</button>
+                                </div>
+                                <pre><code id="slices-code">package main
+
+import "fmt"
+
+func main() {
+    // Array (fixed size)
+    var arr [5]int = [5]int{1, 2, 3, 4, 5}
+    fmt.Println("Array:", arr)
+    
+    // Slice (dynamic)
+    slice := []int{1, 2, 3}
+    fmt.Println("Slice:", slice)
+    
+    // Append to slice
+    slice = append(slice, 4, 5)
+    fmt.Println("After append:", slice)
+    
+    // Slice operations
+    subSlice := slice[1:4]
+    fmt.Println("Sub-slice:", subSlice)
+    
+    // Make slice with capacity
+    numbers := make([]int, 5, 10)
+    fmt.Printf("Length: %d, Capacity: %d\n", len(numbers), cap(numbers))
+}</code></pre>
+                            </div>
+                            <div class="explanation">
+                                <p>Arrays have fixed size, slices are dynamic. Slices are more commonly used and provide powerful operations.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header" data-toggle="error-example">
+                            <h3>Error Handling</h3>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div id="error-example" class="example-content">
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span>errors.go</span>
+                                    <button class="copy-btn" data-copy="error-code">Copy</button>
+                                </div>
+                                <pre><code id="error-code">package main
+
+import (
+    "errors"
+    "fmt"
+)
+
+func divide(a, b float64) (float64, error) {
+    if b == 0 {
+        return 0, errors.New("cannot divide by zero")
+    }
+    return a / b, nil
+}
+
+func main() {
+    // Handle error explicitly
+    result, err := divide(10, 2)
+    if err != nil {
+        fmt.Println("Error:", err)
+        return
+    }
+    fmt.Println("Result:", result)
+    
+    // Handle division by zero
+    result, err = divide(10, 0)
+    if err != nil {
+        fmt.Println("Error:", err)
+    }
+}</code></pre>
+                            </div>
+                            <div class="explanation">
+                                <p>Go uses explicit error handling. Functions return an error as the last return value, which must be checked.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header" data-toggle="goroutines-example">
+                            <h3>Goroutines (Concurrency)</h3>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div id="goroutines-example" class="example-content">
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span>goroutines.go</span>
+                                    <button class="copy-btn" data-copy="goroutines-code">Copy</button>
+                                </div>
+                                <pre><code id="goroutines-code">package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func worker(id int, jobs <-chan int, results chan<- int) {
+    for j := range jobs {
+        fmt.Printf("Worker %d processing job %d\n", id, j)
+        time.Sleep(time.Millisecond * 100)
+        results <- j * 2
+    }
+}
+
+func main() {
+    jobs := make(chan int, 100)
+    results := make(chan int, 100)
+    
+    // Start 3 workers
+    for w := 1; w <= 3; w++ {
+        go worker(w, jobs, results)
+    }
+    
+    // Send 5 jobs
+    for j := 1; j <= 5; j++ {
+        jobs <- j
+    }
+    close(jobs)
+    
+    // Collect results
+    for r := 1; r <= 5; r++ {
+        <-results
+    }
+    
+    fmt.Println("All jobs completed")
+}</code></pre>
+                            </div>
+                            <div class="explanation">
+                                <p>Goroutines are lightweight threads. Channels provide safe communication between goroutines.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Roadmap Tab -->
+            <div id="roadmap" class="tab-content">
+                <h2>Go Learning Roadmap</h2>
+                <p>Follow this structured path to master Go programming from beginner to advanced level.</p>
+                
+                <div class="roadmap-chart">
+                    <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/8b95e548565a83d4a33ac3569f290dd7/b1fcb08b-ed2d-4e71-b399-41f748a666d5/665a5152.png" alt="Go Learning Roadmap" class="roadmap-image">
+                </div>
+                
+                <div class="roadmap-stages">
+                    <div class="stage-section">
+                        <h3>🟢 Beginner Stage</h3>
+                        <div class="topics-grid">
+                            <div class="topic-card" data-topic="installation">
+                                <div class="topic-header">
+                                    <span class="topic-name">Installation & Setup</span>
+                                    <span class="topic-duration">1 day</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="installation">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="basic-syntax">
+                                <div class="topic-header">
+                                    <span class="topic-name">Basic Syntax</span>
+                                    <span class="topic-duration">2-3 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="basic-syntax">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="variables">
+                                <div class="topic-header">
+                                    <span class="topic-name">Variables & Data Types</span>
+                                    <span class="topic-duration">3-4 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="variables">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="control">
+                                <div class="topic-header">
+                                    <span class="topic-name">Control Structures</span>
+                                    <span class="topic-duration">2-3 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="control">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="functions">
+                                <div class="topic-header">
+                                    <span class="topic-name">Functions</span>
+                                    <span class="topic-duration">3-4 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="functions">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="slices">
+                                <div class="topic-header">
+                                    <span class="topic-name">Arrays & Slices</span>
+                                    <span class="topic-duration">2-3 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="slices">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="structs">
+                                <div class="topic-header">
+                                    <span class="topic-name">Maps & Structs</span>
+                                    <span class="topic-duration">3-4 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="structs">Mark Complete</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stage-section">
+                        <h3>🟡 Intermediate Stage</h3>
+                        <div class="topics-grid">
+                            <div class="topic-card" data-topic="pointers">
+                                <div class="topic-header">
+                                    <span class="topic-name">Pointers</span>
+                                    <span class="topic-duration">2-3 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="pointers">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="methods">
+                                <div class="topic-header">
+                                    <span class="topic-name">Methods & Interfaces</span>
+                                    <span class="topic-duration">4-5 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="methods">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="errors">
+                                <div class="topic-header">
+                                    <span class="topic-name">Error Handling</span>
+                                    <span class="topic-duration">2-3 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="errors">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="packages">
+                                <div class="topic-header">
+                                    <span class="topic-name">Packages & Modules</span>
+                                    <span class="topic-duration">3-4 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="packages">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="testing">
+                                <div class="topic-header">
+                                    <span class="topic-name">Testing</span>
+                                    <span class="topic-duration">2-3 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="testing">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="concurrency">
+                                <div class="topic-header">
+                                    <span class="topic-name">Concurrency</span>
+                                    <span class="topic-duration">5-7 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="concurrency">Mark Complete</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stage-section">
+                        <h3>🔴 Advanced Stage</h3>
+                        <div class="topics-grid">
+                            <div class="topic-card" data-topic="web">
+                                <div class="topic-header">
+                                    <span class="topic-name">Web Development</span>
+                                    <span class="topic-duration">7-10 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="web">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="database">
+                                <div class="topic-header">
+                                    <span class="topic-name">Database Integration</span>
+                                    <span class="topic-duration">3-5 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="database">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="microservices">
+                                <div class="topic-header">
+                                    <span class="topic-name">Microservices</span>
+                                    <span class="topic-duration">5-7 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="microservices">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="cloud">
+                                <div class="topic-header">
+                                    <span class="topic-name">Cloud Deployment</span>
+                                    <span class="topic-duration">3-5 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="cloud">Mark Complete</button>
+                            </div>
+                            <div class="topic-card" data-topic="best-practices">
+                                <div class="topic-header">
+                                    <span class="topic-name">Best Practices</span>
+                                    <span class="topic-duration">2-3 days</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-progress="0"></div>
+                                </div>
+                                <button class="mark-complete" data-topic="best-practices">Mark Complete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Practice Tab -->
+            <div id="practice" class="tab-content">
+                <h2>Practice Exercises</h2>
+                <p>Test your Go knowledge with these interactive exercises.</p>
+                
+                <div class="exercises">
+                    <div class="exercise-card">
+                        <h3>Exercise 1: Function Signatures</h3>
+                        <p>Complete the function signature to add two integers:</p>
+                        <div class="code-example">
+                            <pre><code>func add(a, b ____) ____ {
+    return a + b
+}</code></pre>
+                        </div>
+                        <div class="exercise-options">
+                            <button class="option-btn" data-exercise="0" data-option="0">int, int</button>
+                            <button class="option-btn" data-exercise="0" data-option="1">int, string</button>
+                            <button class="option-btn" data-exercise="0" data-option="2">string, int</button>
+                        </div>
+                        <div class="exercise-feedback" id="feedback-0"></div>
+                    </div>
+
+                    <div class="exercise-card">
+                        <h3>Exercise 2: Code Output</h3>
+                        <p>What is the output of this code?</p>
+                        <div class="code-example">
+                            <pre><code>package main
+
+import "fmt"
+
+func main() {
+    x := 5
+    if x > 3 {
+        fmt.Println("Hello")
+    } else {
+        fmt.Println("World")
+    }
+}</code></pre>
+                        </div>
+                        <div class="exercise-options">
+                            <button class="option-btn" data-exercise="1" data-option="0">Hello</button>
+                            <button class="option-btn" data-exercise="1" data-option="1">World</button>
+                            <button class="option-btn" data-exercise="1" data-option="2">Error</button>
+                        </div>
+                        <div class="exercise-feedback" id="feedback-1"></div>
+                    </div>
+
+                    <div class="exercise-card">
+                        <h3>Exercise 3: Goroutines</h3>
+                        <p>Which keyword is used to create a goroutine?</p>
+                        <div class="code-example">
+                            <pre><code>// Start a goroutine
+____ myFunction()</code></pre>
+                        </div>
+                        <div class="exercise-options">
+                            <button class="option-btn" data-exercise="2" data-option="0">go</button>
+                            <button class="option-btn" data-exercise="2" data-option="1">async</button>
+                            <button class="option-btn" data-exercise="2" data-option="2">thread</button>
+                        </div>
+                        <div class="exercise-feedback" id="feedback-2"></div>
+                    </div>
+                </div>
+
+                <div class="practice-summary">
+                    <h3>Your Progress</h3>
+                    <div class="score-display">
+                        <span>Score: <span id="score">0</span> / 3</span>
+                    </div>
+                    <button class="btn btn--primary" onclick="resetExercises()">Reset Exercises</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,30 +1,86 @@
 // Application state
 let currentScore = 0;
+let challengeScore = 0;
 let completedExercises = new Set();
 let roadmapProgress = {};
 
-// Exercise data
+// Enhanced exercise data
 const exercises = [
     {
-        question: "Complete the function signature to add two integers:",
-        code: "func add(a, b ____) ____ {\n    return a + b\n}",
-        options: ["int, int", "int, string", "string, int"],
-        correct: 0,
-        explanation: "Both parameters should be 'int' type, and the return type should also be 'int'."
+        question: "Which of the following is a valid way to declare a variable in Go?",
+        options: ["Option A only", "Option B only", "Option C only", "All of the above"],
+        correct: 3,
+        explanation: "All three ways are valid in Go: var with explicit type, short declaration :=, and var with type inference.",
+        difficulty: "beginner"
     },
     {
         question: "What is the output of this code?",
-        code: "package main\n\nimport \"fmt\"\n\nfunc main() {\n    x := 5\n    if x > 3 {\n        fmt.Println(\"Hello\")\n    } else {\n        fmt.Println(\"World\")\n    }\n}",
-        options: ["Hello", "World", "Error"],
+        options: ["42: answer", "answer: 42", "Compilation error", "42 answer"],
         correct: 0,
-        explanation: "Since x (5) is greater than 3, the condition is true and 'Hello' is printed."
+        explanation: "The function returns 42 as the first value and 'answer' as the second. Printf formats them as '42: answer'.",
+        difficulty: "beginner"
     },
     {
-        question: "Which keyword is used to create a goroutine?",
-        code: "// Start a goroutine\n____ myFunction()",
-        options: ["go", "async", "thread"],
+        question: "What will be the length of the slice after these operations?",
+        options: ["2", "3", "4", "5"],
+        correct: 1,
+        explanation: "slice starts with [1,2,3], becomes [1,2,3,4,5] after append, then [2,3,4] after slice[1:4], so length is 3.",
+        difficulty: "beginner"
+    },
+    {
+        question: "Which statement about Go interfaces is correct?",
+        options: [
+            "MyWriter must explicitly declare it implements Writer",
+            "MyWriter automatically implements Writer",
+            "MyWriter cannot implement Writer without inheritance",
+            "This code will not compile"
+        ],
+        correct: 1,
+        explanation: "Go uses implicit interface satisfaction. Any type that implements all methods of an interface automatically satisfies that interface.",
+        difficulty: "intermediate"
+    },
+    {
+        question: "What happens when this code runs?",
+        options: ["Prints 1 and exits", "Prints 1, 2, 3", "Deadlock error", "Compilation error"],
+        correct: 2,
+        explanation: "The channel has buffer size 2, so the first two sends succeed, but the third send blocks because the buffer is full, causing a deadlock.",
+        difficulty: "intermediate"
+    },
+    {
+        question: "What is the best practice for this function?",
+        options: [
+            "Add defer file.Close()",
+            "Use panic instead of returning error",
+            "Ignore the error",
+            "The code is perfect as-is"
+        ],
         correct: 0,
-        explanation: "The 'go' keyword is used to start a goroutine in Go."
+        explanation: "Always close opened files. defer file.Close() ensures the file is closed even if an error occurs later.",
+        difficulty: "intermediate"
+    },
+    {
+        question: "What is the purpose of context.Context in Go?",
+        options: [
+            "Only for HTTP requests",
+            "Cancellation, deadlines, and request-scoped values",
+            "Only for database connections",
+            "Only for logging"
+        ],
+        correct: 1,
+        explanation: "Context provides cancellation signals, deadlines, and request-scoped values across API boundaries and goroutines.",
+        difficulty: "advanced"
+    },
+    {
+        question: "Which statement about Go's memory management is correct?",
+        options: [
+            "Go has manual memory management like C",
+            "Go uses reference counting for garbage collection",
+            "Go uses a concurrent, tri-color mark-and-sweep GC",
+            "Go never frees memory automatically"
+        ],
+        correct: 2,
+        explanation: "Go uses a concurrent, tri-color mark-and-sweep garbage collector that runs concurrently with the program.",
+        difficulty: "advanced"
     }
 ];
 
@@ -277,7 +333,6 @@ function setupRoadmapProgress() {
     });
 }
 
-// Exercise System - Fixed
 function setupExercises() {
     console.log('Setting up exercises...');
     const optionBtns = document.querySelectorAll('.option-btn');
@@ -306,8 +361,12 @@ function setupExercises() {
             if (selectedOption === exercise.correct) {
                 // Correct answer
                 this.classList.add('correct');
-                feedbackElement.textContent = `Correct! ${exercise.explanation}`;
-                feedbackElement.className = 'exercise-feedback correct';
+                feedbackElement.innerHTML = `
+                    <div class="feedback feedback--correct">
+                        <strong>✅ Correct!</strong><br>
+                        ${exercise.explanation}
+                    </div>
+                `;
                 
                 // Update score if not already completed
                 if (!completedExercises.has(exerciseIndex)) {
@@ -319,8 +378,13 @@ function setupExercises() {
             } else {
                 // Incorrect answer
                 this.classList.add('incorrect');
-                feedbackElement.textContent = `Incorrect. ${exercise.explanation}`;
-                feedbackElement.className = 'exercise-feedback incorrect';
+                feedbackElement.innerHTML = `
+                    <div class="feedback feedback--incorrect">
+                        <strong>❌ Incorrect.</strong><br>
+                        The correct answer is: <strong>${exercise.options[exercise.correct]}</strong><br>
+                        ${exercise.explanation}
+                    </div>
+                `;
                 
                 // Highlight correct answer
                 exerciseOptions[exercise.correct].classList.add('correct');
@@ -328,6 +392,66 @@ function setupExercises() {
             }
             
             saveProgress();
+        });
+    });
+
+    // Setup difficulty filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const difficulty = this.dataset.difficulty;
+            filterExercises(difficulty);
+        });
+    });
+
+    // Setup coding challenges
+    setupCodingChallenges();
+}
+
+function filterExercises(difficulty) {
+    const exerciseCards = document.querySelectorAll('.exercise-card, .challenge-card');
+    
+    exerciseCards.forEach(card => {
+        if (difficulty === 'all' || card.dataset.difficulty === difficulty) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+function setupCodingChallenges() {
+    const runBtns = document.querySelectorAll('.run-code-btn');
+    
+    runBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const challengeCard = this.closest('.challenge-card');
+            const codeInput = challengeCard.querySelector('.code-input');
+            const output = challengeCard.querySelector('.code-output');
+            
+            // Simulate code execution (in a real app, this would send to a backend)
+            const code = codeInput.value;
+            output.innerHTML = `
+                <div class="code-result">
+                    <strong>Code executed:</strong><br>
+                    <pre>${code}</pre>
+                    <div class="execution-note">
+                        💡 In a real environment, this would compile and run your Go code.
+                        For now, check your logic and compare with the expected output.
+                    </div>
+                </div>
+            `;
+            
+            // Mark challenge as attempted
+            const challengeIndex = Array.from(document.querySelectorAll('.challenge-card')).indexOf(challengeCard);
+            if (code.trim().length > 50) { // Basic check for substantial code
+                challengeScore = Math.max(challengeScore, challengeIndex + 1);
+                updateScoreDisplay();
+                saveProgress();
+            }
         });
     });
 }
@@ -338,12 +462,31 @@ function updateScoreDisplay() {
     if (scoreElement) {
         scoreElement.textContent = currentScore;
     }
+
+    const mcScoreElement = document.getElementById('mc-score');
+    const challengeScoreElement = document.getElementById('challenge-score');
+    const overallProgress = document.getElementById('overall-progress');
+    
+    if (mcScoreElement) mcScoreElement.textContent = currentScore;
+    if (challengeScoreElement) challengeScoreElement.textContent = challengeScore;
+    
+    if (overallProgress) {
+        const totalQuestions = exercises.length + 3; // 3 coding challenges
+        const totalCompleted = currentScore + challengeScore;
+        const percentage = (totalCompleted / totalQuestions) * 100;
+        overallProgress.style.width = `${percentage}%`;
+    }
 }
 
 // Reset exercises
 function resetExercises() {
-    console.log('Resetting exercises...');
+    resetAllExercises();
+}
+
+function resetAllExercises() {
+    console.log('Resetting all exercises...');
     currentScore = 0;
+    challengeScore = 0;
     completedExercises.clear();
     
     // Reset all option buttons
@@ -357,8 +500,19 @@ function resetExercises() {
     // Clear all feedback
     const feedbackElements = document.querySelectorAll('.exercise-feedback');
     feedbackElements.forEach(feedback => {
-        feedback.textContent = '';
-        feedback.className = 'exercise-feedback';
+        feedback.innerHTML = '';
+    });
+
+    // Reset coding challenges
+    const codeInputs = document.querySelectorAll('.code-input');
+    const codeOutputs = document.querySelectorAll('.code-output');
+    
+    codeInputs.forEach(input => {
+        input.value = input.placeholder;
+    });
+    
+    codeOutputs.forEach(output => {
+        output.innerHTML = '';
     });
     
     updateScoreDisplay();
@@ -369,6 +523,7 @@ function resetExercises() {
 function saveProgress() {
     const progressData = {
         currentScore: currentScore,
+        challengeScore: challengeScore,
         completedExercises: Array.from(completedExercises),
         roadmapProgress: roadmapProgress
     };
@@ -389,6 +544,7 @@ function loadProgress() {
             const progressData = JSON.parse(saved);
             
             currentScore = progressData.currentScore || 0;
+            challengeScore = progressData.challengeScore || 0;
             completedExercises = new Set(progressData.completedExercises || []);
             roadmapProgress = progressData.roadmapProgress || {};
             
@@ -479,11 +635,14 @@ document.addEventListener('keydown', function(e) {
 
 // Export functions for global access
 window.resetExercises = resetExercises;
+window.resetAllExercises = resetAllExercises;
 window.goLearningApp = {
     resetExercises,
+    resetAllExercises,
     saveProgress,
     loadProgress,
     currentScore,
+    challengeScore,
     completedExercises,
     roadmapProgress
 };

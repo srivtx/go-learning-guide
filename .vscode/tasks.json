@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Go Learning Guide Examples",
+			"type": "shell",
+			"command": "echo",
+			"args": [
+				"Choose an example to run:",
+				"1. go run examples/basic_types.go",
+				"2. go run examples/collections.go",
+				"3. go run examples/concurrency_patterns.go",
+				"4. go run examples/todo_cli.go",
+				"5. go run examples/web_server.go",
+				"6. go test examples/basic_test.go -v",
+				"7. Open index.html in browser for interactive guide"
+			],
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

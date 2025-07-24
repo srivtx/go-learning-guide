@@ -16,9 +16,12 @@
         <nav class="tab-nav">
             <button class="tab-btn active" data-tab="getting-started">Getting Started</button>
             <button class="tab-btn" data-tab="basic-syntax">Basic Syntax</button>
+            <button class="tab-btn" data-tab="advanced-topics">Advanced Topics</button>
             <button class="tab-btn" data-tab="code-examples">Code Examples</button>
-            <button class="tab-btn" data-tab="roadmap">Roadmap</button>
             <button class="tab-btn" data-tab="practice">Practice</button>
+            <button class="tab-btn" data-tab="projects">Projects</button>
+            <button class="tab-btn" data-tab="roadmap">Roadmap</button>
+            <button class="tab-btn" data-tab="resources">Resources</button>
         </nav>
 
         <main class="main-content">
@@ -98,6 +101,974 @@ func main() {
                                 <span>variables.go</span>
                                 <button class="copy-btn" data-copy="variables-code">Copy</button>
                             </div>
+                            <pre><code id="variables-code">package main
+
+import "fmt"
+
+func main() {
+    // Variable declarations - multiple ways
+    var name string = "Go"         // Explicit type
+    var age int = 25              // Explicit type
+    height := 5.9                 // Type inference
+    isActive := true              // Boolean
+    
+    // Multiple variable declaration
+    var (
+        username = "gopher"
+        score    = 100
+        level    = "beginner"
+    )
+    
+    // Constants
+    const pi = 3.14159
+    const maxConnections = 1000
+    
+    // Typed constants
+    const timeout time.Duration = 30 * time.Second
+    
+    fmt.Printf("Name: %s, Age: %d\n", name, age)
+    fmt.Printf("Height: %.1f, Active: %v\n", height, isActive)
+    fmt.Printf("User: %s, Score: %d, Level: %s\n", username, score, level)
+    fmt.Printf("Pi: %.5f, Max Connections: %d\n", pi, maxConnections)
+}</code></pre>
+                        </div>
+                        <div class="explanation">
+                            <h4>Key Points:</h4>
+                            <ul>
+                                <li><strong>var</strong> - Explicit variable declaration with optional type</li>
+                                <li><strong>:=</strong> - Short declaration with type inference (inside functions only)</li>
+                                <li><strong>const</strong> - Compile-time constants, immutable</li>
+                                <li><strong>Zero values</strong> - Variables have default values (0, "", false, nil)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="syntax-example">
+                        <h3>Data Types</h3>
+                        <div class="code-example">
+                            <div class="code-header">
+                                <span>data_types.go</span>
+                                <button class="copy-btn" data-copy="datatypes-code">Copy</button>
+                            </div>
+                            <pre><code id="datatypes-code">package main
+
+import "fmt"
+
+func main() {
+    // Basic types
+    var (
+        // Integers
+        age     int     = 25
+        height  int32   = 180
+        weight  int64   = 75
+        
+        // Unsigned integers
+        score   uint    = 100
+        level   uint8   = 5
+        
+        // Floating point
+        price   float32 = 99.99
+        balance float64 = 1000.50
+        
+        // Boolean
+        isActive bool = true
+        
+        // String
+        message string = "Hello, Go!"
+        
+        // Byte (alias for uint8)
+        grade byte = 'A'
+        
+        // Rune (alias for int32, represents Unicode code point)
+        symbol rune = '🐹'
+    )
+    
+    // Complex numbers
+    var complex1 complex64 = 1 + 2i
+    var complex2 complex128 = 3 + 4i
+    
+    // Arrays
+    var numbers [5]int = [5]int{1, 2, 3, 4, 5}
+    fruits := [3]string{"apple", "banana", "orange"}
+    
+    // Slices (dynamic arrays)
+    colors := []string{"red", "green", "blue"}
+    
+    // Maps
+    capitals := map[string]string{
+        "France": "Paris",
+        "Japan":  "Tokyo",
+        "Brazil": "Brasília",
+    }
+    
+    fmt.Printf("Age: %d, Height: %d cm, Weight: %d kg\n", age, height, weight)
+    fmt.Printf("Score: %d, Level: %d\n", score, level)
+    fmt.Printf("Price: $%.2f, Balance: $%.2f\n", price, balance)
+    fmt.Printf("Active: %t, Message: %s\n", isActive, message)
+    fmt.Printf("Grade: %c, Symbol: %c\n", grade, symbol)
+    fmt.Printf("Complex: %v, %v\n", complex1, complex2)
+    fmt.Printf("Numbers: %v\n", numbers)
+    fmt.Printf("Fruits: %v\n", fruits)
+    fmt.Printf("Colors: %v\n", colors)
+    fmt.Printf("Capitals: %v\n", capitals)
+}</code></pre>
+                        </div>
+                        <div class="explanation">
+                            <h4>Go Data Types:</h4>
+                            <ul>
+                                <li><strong>Integers:</strong> int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64</li>
+                                <li><strong>Floating Point:</strong> float32, float64</li>
+                                <li><strong>Boolean:</strong> bool (true/false)</li>
+                                <li><strong>String:</strong> UTF-8 encoded text</li>
+                                <li><strong>Complex:</strong> complex64, complex128</li>
+                                <li><strong>Collections:</strong> Arrays, Slices, Maps</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="syntax-example">
+                        <h3>Functions</h3>
+                        <div class="code-example">
+                            <div class="code-header">
+                                <span>functions.go</span>
+                                <button class="copy-btn" data-copy="functions-code">Copy</button>
+                            </div>
+                            <pre><code id="functions-code">package main
+
+import (
+    "errors"
+    "fmt"
+)
+
+// Basic function
+func greet(name string) string {
+    return "Hello, " + name + "!"
+}
+
+// Function with multiple parameters
+func add(a, b int) int {
+    return a + b
+}
+
+// Function with multiple return values
+func divide(a, b float64) (float64, error) {
+    if b == 0 {
+        return 0, errors.New("division by zero")
+    }
+    return a / b, nil
+}
+
+// Function with named return values
+func calculate(a, b int) (sum, difference, product int) {
+    sum = a + b
+    difference = a - b
+    product = a * b
+    return // naked return
+}
+
+// Variadic function (accepts variable number of arguments)
+func sum(numbers ...int) int {
+    total := 0
+    for _, num := range numbers {
+        total += num
+    }
+    return total
+}
+
+// Function as a type
+type Calculator func(int, int) int
+
+func multiply(a, b int) int {
+    return a * b
+}
+
+// Higher-order function
+func operate(a, b int, fn Calculator) int {
+    return fn(a, b)
+}
+
+// Anonymous function (closure)
+func getMultiplier(factor int) func(int) int {
+    return func(n int) int {
+        return n * factor
+    }
+}
+
+// Method with receiver
+type Rectangle struct {
+    width, height float64
+}
+
+func (r Rectangle) Area() float64 {
+    return r.width * r.height
+}
+
+func (r *Rectangle) Scale(factor float64) {
+    r.width *= factor
+    r.height *= factor
+}
+
+func main() {
+    // Basic function calls
+    fmt.Println(greet("Gopher"))
+    fmt.Println("Sum:", add(5, 3))
+    
+    // Multiple return values
+    result, err := divide(10, 2)
+    if err != nil {
+        fmt.Println("Error:", err)
+    } else {
+        fmt.Printf("Division result: %.2f\n", result)
+    }
+    
+    // Named returns
+    s, d, p := calculate(10, 3)
+    fmt.Printf("Sum: %d, Diff: %d, Product: %d\n", s, d, p)
+    
+    // Variadic function
+    fmt.Println("Sum of multiple numbers:", sum(1, 2, 3, 4, 5))
+    
+    // Function as variable
+    var calc Calculator = multiply
+    fmt.Println("Multiply function:", operate(4, 5, calc))
+    
+    // Anonymous function
+    doubler := getMultiplier(2)
+    fmt.Println("Double 7:", doubler(7))
+    
+    // Methods
+    rect := Rectangle{width: 5, height: 3}
+    fmt.Printf("Rectangle area: %.2f\n", rect.Area())
+    rect.Scale(2)
+    fmt.Printf("Scaled rectangle area: %.2f\n", rect.Area())
+}</code></pre>
+                        </div>
+                        <div class="explanation">
+                            <h4>Function Features:</h4>
+                            <ul>
+                                <li><strong>Multiple returns:</strong> Functions can return multiple values</li>
+                                <li><strong>Named returns:</strong> Return values can be named</li>
+                                <li><strong>Variadic functions:</strong> Accept variable number of arguments</li>
+                                <li><strong>First-class functions:</strong> Functions are values</li>
+                                <li><strong>Closures:</strong> Functions can capture variables from outer scope</li>
+                                <li><strong>Methods:</strong> Functions with receivers (like methods in OOP)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="syntax-example">
+                        <h3>Control Structures</h3>
+                        <div class="code-example">
+                            <div class="code-header">
+                                <span>control.go</span>
+                                <button class="copy-btn" data-copy="control-code">Copy</button>
+                            </div>
+                            <pre><code id="control-code">package main
+
+import "fmt"
+
+func main() {
+    // If-else statements
+    score := 85
+    
+    if score >= 90 {
+        fmt.Println("Grade: A")
+    } else if score >= 80 {
+        fmt.Println("Grade: B")
+    } else if score >= 70 {
+        fmt.Println("Grade: C")
+    } else {
+        fmt.Println("Grade: F")
+    }
+    
+    // If with initialization
+    if age := 25; age >= 18 {
+        fmt.Println("You are an adult")
+    }
+    
+    // For loops - the only loop in Go
+    
+    // Traditional for loop
+    fmt.Println("Traditional for loop:")
+    for i := 0; i < 5; i++ {
+        fmt.Printf("%d ", i)
+    }
+    fmt.Println()
+    
+    // While-style loop
+    fmt.Println("While-style loop:")
+    count := 0
+    for count < 3 {
+        fmt.Printf("Count: %d\n", count)
+        count++
+    }
+    
+    // Infinite loop (use with break)
+    fmt.Println("Infinite loop with break:")
+    i := 0
+    for {
+        if i >= 3 {
+            break
+        }
+        fmt.Printf("Iteration: %d\n", i)
+        i++
+    }
+    
+    // Range loop over slice
+    numbers := []int{10, 20, 30, 40, 50}
+    fmt.Println("Range over slice:")
+    for index, value := range numbers {
+        fmt.Printf("Index: %d, Value: %d\n", index, value)
+    }
+    
+    // Range over map
+    capitals := map[string]string{
+        "France": "Paris",
+        "Japan":  "Tokyo",
+        "USA":    "Washington D.C.",
+    }
+    fmt.Println("Range over map:")
+    for country, capital := range capitals {
+        fmt.Printf("%s: %s\n", country, capital)
+    }
+    
+    // Range over string (iterates over runes)
+    fmt.Println("Range over string:")
+    text := "Hello, 世界"
+    for i, char := range text {
+        fmt.Printf("Index: %d, Char: %c\n", i, char)
+    }
+    
+    // Switch statements
+    day := "Monday"
+    switch day {
+    case "Monday":
+        fmt.Println("Start of the work week")
+    case "Tuesday", "Wednesday", "Thursday":
+        fmt.Println("Midweek")
+    case "Friday":
+        fmt.Println("TGIF!")
+    case "Saturday", "Sunday":
+        fmt.Println("Weekend!")
+    default:
+        fmt.Println("Invalid day")
+    }
+    
+    // Switch without expression (like if-else chain)
+    num := 42
+    switch {
+    case num < 0:
+        fmt.Println("Negative number")
+    case num == 0:
+        fmt.Println("Zero")
+    case num > 0 && num < 100:
+        fmt.Println("Positive number less than 100")
+    default:
+        fmt.Println("Large positive number")
+    }
+    
+    // Type switch
+    var x interface{} = "hello"
+    switch v := x.(type) {
+    case string:
+        fmt.Printf("String: %s\n", v)
+    case int:
+        fmt.Printf("Integer: %d\n", v)
+    case bool:
+        fmt.Printf("Boolean: %v\n", v)
+    default:
+        fmt.Printf("Unknown type: %T\n", v)
+    }
+}</code></pre>
+                        </div>
+                        <div class="explanation">
+                            <h4>Control Flow Features:</h4>
+                            <ul>
+                                <li><strong>if-else:</strong> Standard conditional statements</li>
+                                <li><strong>for:</strong> The only loop construct in Go (very flexible)</li>
+                                <li><strong>range:</strong> Iterates over arrays, slices, maps, strings, channels</li>
+                                <li><strong>switch:</strong> More powerful than in other languages</li>
+                                <li><strong>Type switch:</strong> Switch on the type of an interface</li>
+                                <li><strong>break/continue:</strong> Loop control statements</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Topics Tab -->
+            <div id="advanced-topics" class="tab-content">
+                <h2>Advanced Go Topics</h2>
+                <p>Master advanced Go concepts for professional development.</p>
+                
+                <div class="advanced-examples">
+                    <div class="advanced-example">
+                        <h3>Interfaces and Polymorphism</h3>
+                        <div class="code-example">
+                            <div class="code-header">
+                                <span>interfaces.go</span>
+                                <button class="copy-btn" data-copy="interfaces-code">Copy</button>
+                            </div>
+                            <pre><code id="interfaces-code">package main
+
+import (
+    "fmt"
+    "math"
+)
+
+// Interface definition
+type Shape interface {
+    Area() float64
+    Perimeter() float64
+}
+
+// Interface composition
+type Drawable interface {
+    Draw()
+}
+
+type DrawableShape interface {
+    Shape
+    Drawable
+}
+
+// Rectangle struct implementing Shape
+type Rectangle struct {
+    width, height float64
+}
+
+func (r Rectangle) Area() float64 {
+    return r.width * r.height
+}
+
+func (r Rectangle) Perimeter() float64 {
+    return 2 * (r.width + r.height)
+}
+
+func (r Rectangle) Draw() {
+    fmt.Printf("Drawing rectangle: %.1f x %.1f\n", r.width, r.height)
+}
+
+// Circle struct implementing Shape
+type Circle struct {
+    radius float64
+}
+
+func (c Circle) Area() float64 {
+    return math.Pi * c.radius * c.radius
+}
+
+func (c Circle) Perimeter() float64 {
+    return 2 * math.Pi * c.radius
+}
+
+func (c Circle) Draw() {
+    fmt.Printf("Drawing circle with radius: %.1f\n", c.radius)
+}
+
+// Function that works with any Shape
+func printShapeInfo(s Shape) {
+    fmt.Printf("Area: %.2f, Perimeter: %.2f\n", s.Area(), s.Perimeter())
+}
+
+// Type assertion and type switch
+func describe(i interface{}) {
+    switch v := i.(type) {
+    case Rectangle:
+        fmt.Printf("Rectangle with width %.1f and height %.1f\n", v.width, v.height)
+    case Circle:
+        fmt.Printf("Circle with radius %.1f\n", v.radius)
+    case string:
+        fmt.Printf("String: %s\n", v)
+    case int:
+        fmt.Printf("Integer: %d\n", v)
+    default:
+        fmt.Printf("Unknown type: %T\n", v)
+    }
+}
+
+// Empty interface example
+func printAnything(value interface{}) {
+    fmt.Printf("Value: %v, Type: %T\n", value, value)
+}
+
+func main() {
+    // Creating shapes
+    rect := Rectangle{width: 5, height: 3}
+    circle := Circle{radius: 4}
+    
+    // Using interface polymorphism
+    shapes := []Shape{rect, circle}
+    
+    fmt.Println("Shape information:")
+    for i, shape := range shapes {
+        fmt.Printf("Shape %d:\n", i+1)
+        printShapeInfo(shape)
+        
+        // Type assertion to check if shape implements Drawable
+        if drawable, ok := shape.(Drawable); ok {
+            drawable.Draw()
+        }
+        fmt.Println()
+    }
+    
+    // Type assertion examples
+    var s Shape = rect
+    if r, ok := s.(Rectangle); ok {
+        fmt.Printf("Successfully asserted Rectangle: %+v\n", r)
+    }
+    
+    // Type switch examples
+    fmt.Println("Type switch examples:")
+    describe(rect)
+    describe(circle)
+    describe("Hello, Go!")
+    describe(42)
+    describe(3.14)
+    
+    // Empty interface examples
+    fmt.Println("Empty interface examples:")
+    printAnything(42)
+    printAnything("Hello")
+    printAnything(rect)
+    printAnything([]int{1, 2, 3})
+}</code></pre>
+                        </div>
+                        <div class="explanation">
+                            <h4>Interface Concepts:</h4>
+                            <ul>
+                                <li><strong>Implicit implementation:</strong> No "implements" keyword needed</li>
+                                <li><strong>Interface composition:</strong> Embed interfaces in other interfaces</li>
+                                <li><strong>Type assertion:</strong> Extract concrete type from interface</li>
+                                <li><strong>Type switch:</strong> Handle different types in one construct</li>
+                                <li><strong>Empty interface:</strong> interface{} can hold any value</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="advanced-example">
+                        <h3>Concurrency: Goroutines and Channels</h3>
+                        <div class="code-example">
+                            <div class="code-header">
+                                <span>concurrency.go</span>
+                                <button class="copy-btn" data-copy="concurrency-code">Copy</button>
+                            </div>
+                            <pre><code id="concurrency-code">package main
+
+import (
+    "fmt"
+    "sync"
+    "time"
+)
+
+// Basic goroutine example
+func sayHello(name string, wg *sync.WaitGroup) {
+    defer wg.Done()
+    for i := 0; i < 3; i++ {
+        fmt.Printf("Hello from %s - %d\n", name, i)
+        time.Sleep(100 * time.Millisecond)
+    }
+}
+
+// Channel communication
+func producer(ch chan<- int, wg *sync.WaitGroup) {
+    defer wg.Done()
+    defer close(ch)
+    
+    for i := 1; i <= 5; i++ {
+        ch <- i
+        fmt.Printf("Produced: %d\n", i)
+        time.Sleep(200 * time.Millisecond)
+    }
+}
+
+func consumer(ch <-chan int, wg *sync.WaitGroup) {
+    defer wg.Done()
+    
+    for value := range ch {
+        fmt.Printf("Consumed: %d\n", value)
+        time.Sleep(150 * time.Millisecond)
+    }
+}
+
+// Worker pool pattern
+func worker(id int, jobs <-chan int, results chan<- int, wg *sync.WaitGroup) {
+    defer wg.Done()
+    
+    for job := range jobs {
+        fmt.Printf("Worker %d processing job %d\n", id, job)
+        time.Sleep(time.Millisecond * 100)
+        results <- job * 2
+    }
+}
+
+// Select statement for non-blocking operations
+func selectExample() {
+    ch1 := make(chan string)
+    ch2 := make(chan string)
+    
+    go func() {
+        time.Sleep(200 * time.Millisecond)
+        ch1 <- "from channel 1"
+    }()
+    
+    go func() {
+        time.Sleep(100 * time.Millisecond)
+        ch2 <- "from channel 2"
+    }()
+    
+    for i := 0; i < 2; i++ {
+        select {
+        case msg1 := <-ch1:
+            fmt.Println("Received:", msg1)
+        case msg2 := <-ch2:
+            fmt.Println("Received:", msg2)
+        case <-time.After(300 * time.Millisecond):
+            fmt.Println("Timeout!")
+            return
+        }
+    }
+}
+
+// Buffered channels
+func bufferedChannelExample() {
+    ch := make(chan int, 3) // Buffered channel with capacity 3
+    
+    // Send without blocking (until buffer is full)
+    ch <- 1
+    ch <- 2
+    ch <- 3
+    
+    fmt.Printf("Channel length: %d, capacity: %d\n", len(ch), cap(ch))
+    
+    // Receive values
+    for i := 0; i < 3; i++ {
+        value := <-ch
+        fmt.Printf("Received: %d\n", value)
+    }
+}
+
+// Mutex for shared data protection
+type Counter struct {
+    mu    sync.Mutex
+    value int
+}
+
+func (c *Counter) Increment() {
+    c.mu.Lock()
+    defer c.mu.Unlock()
+    c.value++
+}
+
+func (c *Counter) Value() int {
+    c.mu.Lock()
+    defer c.mu.Unlock()
+    return c.value
+}
+
+func main() {
+    fmt.Println("=== Basic Goroutines ===")
+    var wg sync.WaitGroup
+    
+    wg.Add(2)
+    go sayHello("Goroutine 1", &wg)
+    go sayHello("Goroutine 2", &wg)
+    wg.Wait()
+    
+    fmt.Println("\n=== Producer-Consumer Pattern ===")
+    ch := make(chan int)
+    wg.Add(2)
+    
+    go producer(ch, &wg)
+    go consumer(ch, &wg)
+    wg.Wait()
+    
+    fmt.Println("\n=== Worker Pool Pattern ===")
+    jobs := make(chan int, 5)
+    results := make(chan int, 5)
+    
+    // Start workers
+    wg.Add(3)
+    for w := 1; w <= 3; w++ {
+        go worker(w, jobs, results, &wg)
+    }
+    
+    // Send jobs
+    for j := 1; j <= 5; j++ {
+        jobs <- j
+    }
+    close(jobs)
+    
+    // Wait for workers to finish
+    go func() {
+        wg.Wait()
+        close(results)
+    }()
+    
+    // Collect results
+    for result := range results {
+        fmt.Printf("Result: %d\n", result)
+    }
+    
+    fmt.Println("\n=== Select Statement ===")
+    selectExample()
+    
+    fmt.Println("\n=== Buffered Channels ===")
+    bufferedChannelExample()
+    
+    fmt.Println("\n=== Mutex Example ===")
+    counter := &Counter{}
+    
+    // Start multiple goroutines to increment counter
+    wg.Add(10)
+    for i := 0; i < 10; i++ {
+        go func() {
+            defer wg.Done()
+            for j := 0; j < 100; j++ {
+                counter.Increment()
+            }
+        }()
+    }
+    
+    wg.Wait()
+    fmt.Printf("Final counter value: %d\n", counter.Value())
+}</code></pre>
+                        </div>
+                        <div class="explanation">
+                            <h4>Concurrency Concepts:</h4>
+                            <ul>
+                                <li><strong>Goroutines:</strong> Lightweight threads managed by Go runtime</li>
+                                <li><strong>Channels:</strong> Communication mechanism between goroutines</li>
+                                <li><strong>Select:</strong> Choose from multiple channel operations</li>
+                                <li><strong>Buffered channels:</strong> Allow non-blocking sends up to buffer size</li>
+                                <li><strong>WaitGroup:</strong> Wait for multiple goroutines to complete</li>
+                                <li><strong>Mutex:</strong> Protect shared data from race conditions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="advanced-example">
+                        <h3>Error Handling and Panic Recovery</h3>
+                        <div class="code-example">
+                            <div class="code-header">
+                                <span>error_handling.go</span>
+                                <button class="copy-btn" data-copy="error-handling-code">Copy</button>
+                            </div>
+                            <pre><code id="error-handling-code">package main
+
+import (
+    "errors"
+    "fmt"
+    "log"
+    "os"
+    "strconv"
+)
+
+// Custom error type
+type ValidationError struct {
+    Field   string
+    Message string
+}
+
+func (e ValidationError) Error() string {
+    return fmt.Sprintf("validation error in field '%s': %s", e.Field, e.Message)
+}
+
+// Multiple error handling patterns
+func divide(a, b float64) (float64, error) {
+    if b == 0 {
+        return 0, errors.New("division by zero")
+    }
+    return a / b, nil
+}
+
+// Wrapped errors
+func processFile(filename string) error {
+    if filename == "" {
+        return fmt.Errorf("processFile: %w", errors.New("filename cannot be empty"))
+    }
+    
+    // Simulate file operation that might fail
+    if filename == "invalid.txt" {
+        return fmt.Errorf("processFile: failed to open %s: %w", filename, os.ErrNotExist)
+    }
+    
+    return nil
+}
+
+// Custom error with additional context
+func validateUser(name string, age int) error {
+    if name == "" {
+        return ValidationError{
+            Field:   "name",
+            Message: "name cannot be empty",
+        }
+    }
+    
+    if age < 0 || age > 150 {
+        return ValidationError{
+            Field:   "age",
+            Message: "age must be between 0 and 150",
+        }
+    }
+    
+    return nil
+}
+
+// Panic and recover example
+func riskyOperation(value int) (result int) {
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Printf("Recovered from panic: %v\n", r)
+            result = -1 // Set a safe default value
+        }
+    }()
+    
+    if value == 0 {
+        panic("cannot process zero value")
+    }
+    
+    return 100 / value
+}
+
+// Multiple return pattern for errors
+func parseAndValidate(input string) (int, error) {
+    // First, try to parse
+    num, err := strconv.Atoi(input)
+    if err != nil {
+        return 0, fmt.Errorf("failed to parse '%s': %w", input, err)
+    }
+    
+    // Then validate
+    if num < 0 {
+        return 0, errors.New("number must be non-negative")
+    }
+    
+    return num, nil
+}
+
+// Error checking with early return
+func processNumbers(inputs []string) error {
+    for i, input := range inputs {
+        num, err := parseAndValidate(input)
+        if err != nil {
+            return fmt.Errorf("error processing input %d ('%s'): %w", i, input, err)
+        }
+        fmt.Printf("Processed: %d\n", num)
+    }
+    return nil
+}
+
+// Sentinel errors
+var (
+    ErrNotFound     = errors.New("item not found")
+    ErrInvalidInput = errors.New("invalid input")
+    ErrTimeout      = errors.New("operation timed out")
+)
+
+func findItem(id int) (string, error) {
+    items := map[int]string{
+        1: "apple",
+        2: "banana",
+        3: "orange",
+    }
+    
+    if item, exists := items[id]; exists {
+        return item, nil
+    }
+    
+    return "", ErrNotFound
+}
+
+func main() {
+    fmt.Println("=== Basic Error Handling ===")
+    result, err := divide(10, 2)
+    if err != nil {
+        fmt.Printf("Error: %v\n", err)
+    } else {
+        fmt.Printf("Result: %.2f\n", result)
+    }
+    
+    // Error case
+    _, err = divide(10, 0)
+    if err != nil {
+        fmt.Printf("Error: %v\n", err)
+    }
+    
+    fmt.Println("\n=== Wrapped Errors ===")
+    err = processFile("")
+    if err != nil {
+        fmt.Printf("Error: %v\n", err)
+        
+        // Unwrap errors
+        if unwrapped := errors.Unwrap(err); unwrapped != nil {
+            fmt.Printf("Unwrapped: %v\n", unwrapped)
+        }
+    }
+    
+    fmt.Println("\n=== Custom Errors ===")
+    err = validateUser("", 25)
+    if err != nil {
+        fmt.Printf("Validation failed: %v\n", err)
+        
+        // Type assertion for custom error
+        if validationErr, ok := err.(ValidationError); ok {
+            fmt.Printf("Field: %s, Message: %s\n", validationErr.Field, validationErr.Message)
+        }
+    }
+    
+    fmt.Println("\n=== Panic and Recover ===")
+    fmt.Printf("Result 1: %d\n", riskyOperation(10))
+    fmt.Printf("Result 2: %d\n", riskyOperation(0)) // This will panic and recover
+    fmt.Printf("Result 3: %d\n", riskyOperation(5))
+    
+    fmt.Println("\n=== Error Propagation ===")
+    inputs := []string{"10", "20", "invalid", "30"}
+    err = processNumbers(inputs)
+    if err != nil {
+        fmt.Printf("Processing failed: %v\n", err)
+    }
+    
+    fmt.Println("\n=== Sentinel Errors ===")
+    item, err := findItem(1)
+    if err != nil {
+        if errors.Is(err, ErrNotFound) {
+            fmt.Println("Item not found - handling gracefully")
+        } else {
+            fmt.Printf("Unexpected error: %v\n", err)
+        }
+    } else {
+        fmt.Printf("Found item: %s\n", item)
+    }
+    
+    // Not found case
+    _, err = findItem(999)
+    if errors.Is(err, ErrNotFound) {
+        fmt.Println("Item 999 not found - as expected")
+    }
+    
+    fmt.Println("\n=== Logging Errors ===")
+    log.SetFlags(log.LstdFlags | log.Lshortfile)
+    
+    if err := processFile("invalid.txt"); err != nil {
+        log.Printf("File processing failed: %v", err)
+    }
+}</code></pre>
+                        </div>
+                        <div class="explanation">
+                            <h4>Error Handling Best Practices:</h4>
+                            <ul>
+                                <li><strong>Explicit error checking:</strong> Always check and handle errors</li>
+                                <li><strong>Error wrapping:</strong> Add context using fmt.Errorf with %w verb</li>
+                                <li><strong>Custom errors:</strong> Implement error interface for rich error information</li>
+                                <li><strong>Sentinel errors:</strong> Predefined error values for comparison</li>
+                                <li><strong>Panic/recover:</strong> Use sparingly, only for truly exceptional conditions</li>
+                                <li><strong>Early returns:</strong> Check errors immediately and return early</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
                             <pre><code id="variables-code">package main
 
 import "fmt"
@@ -616,75 +1587,849 @@ func main() {
                 </div>
             </div>
 
+            <!-- Projects Tab -->
+            <div id="projects" class="tab-content">
+                <h2>Hands-on Projects</h2>
+                <p>Build real-world applications to practice your Go skills.</p>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-level beginner">Beginner</div>
+                        <h3>Calculator CLI</h3>
+                        <p>Build a command-line calculator that performs basic arithmetic operations.</p>
+                        <div class="project-skills">
+                            <span class="skill-tag">Functions</span>
+                            <span class="skill-tag">Error Handling</span>
+                            <span class="skill-tag">User Input</span>
+                        </div>
+                        <div class="project-details">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>Accept command-line arguments for operations</li>
+                                <li>Support +, -, *, / operations</li>
+                                <li>Handle division by zero</li>
+                                <li>Validate input parameters</li>
+                            </ul>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span>calculator.go</span>
+                                    <button class="copy-btn" data-copy="calculator-project">Copy</button>
+                                </div>
+                                <pre><code id="calculator-project">package main
+
+import (
+    "fmt"
+    "os"
+    "strconv"
+)
+
+func main() {
+    if len(os.Args) != 4 {
+        fmt.Println("Usage: calculator <num1> <operation> <num2>")
+        fmt.Println("Operations: +, -, *, /")
+        os.Exit(1)
+    }
+    
+    num1, err := strconv.ParseFloat(os.Args[1], 64)
+    if err != nil {
+        fmt.Printf("Invalid first number: %s\n", os.Args[1])
+        os.Exit(1)
+    }
+    
+    operation := os.Args[2]
+    
+    num2, err := strconv.ParseFloat(os.Args[3], 64)
+    if err != nil {
+        fmt.Printf("Invalid second number: %s\n", os.Args[3])
+        os.Exit(1)
+    }
+    
+    result, err := calculate(num1, operation, num2)
+    if err != nil {
+        fmt.Printf("Error: %v\n", err)
+        os.Exit(1)
+    }
+    
+    fmt.Printf("%.2f %s %.2f = %.2f\n", num1, operation, num2, result)
+}
+
+func calculate(a float64, op string, b float64) (float64, error) {
+    switch op {
+    case "+":
+        return a + b, nil
+    case "-":
+        return a - b, nil
+    case "*":
+        return a * b, nil
+    case "/":
+        if b == 0 {
+            return 0, fmt.Errorf("division by zero")
+        }
+        return a / b, nil
+    default:
+        return 0, fmt.Errorf("unsupported operation: %s", op)
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-level beginner">Beginner</div>
+                        <h3>Todo List Manager</h3>
+                        <p>Create a simple todo list application with file persistence.</p>
+                        <div class="project-skills">
+                            <span class="skill-tag">Structs</span>
+                            <span class="skill-tag">JSON</span>
+                            <span class="skill-tag">File I/O</span>
+                            <span class="skill-tag">Slices</span>
+                        </div>
+                        <div class="project-details">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>Add, remove, and list todo items</li>
+                                <li>Mark items as completed</li>
+                                <li>Save/load from JSON file</li>
+                                <li>Command-line interface</li>
+                            </ul>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span>todo.go (starter)</span>
+                                    <button class="copy-btn" data-copy="todo-project">Copy</button>
+                                </div>
+                                <pre><code id="todo-project">package main
+
+import (
+    "encoding/json"
+    "fmt"
+    "io/ioutil"
+    "os"
+    "strconv"
+    "time"
+)
+
+type TodoItem struct {
+    ID          int       `json:"id"`
+    Title       string    `json:"title"`
+    Description string    `json:"description"`
+    Completed   bool      `json:"completed"`
+    CreatedAt   time.Time `json:"created_at"`
+}
+
+type TodoList struct {
+    Items  []TodoItem `json:"items"`
+    NextID int        `json:"next_id"`
+}
+
+func (tl *TodoList) AddItem(title, description string) {
+    item := TodoItem{
+        ID:          tl.NextID,
+        Title:       title,
+        Description: description,
+        Completed:   false,
+        CreatedAt:   time.Now(),
+    }
+    tl.Items = append(tl.Items, item)
+    tl.NextID++
+}
+
+func (tl *TodoList) CompleteItem(id int) error {
+    for i := range tl.Items {
+        if tl.Items[i].ID == id {
+            tl.Items[i].Completed = true
+            return nil
+        }
+    }
+    return fmt.Errorf("item with ID %d not found", id)
+}
+
+func (tl *TodoList) RemoveItem(id int) error {
+    for i, item := range tl.Items {
+        if item.ID == id {
+            tl.Items = append(tl.Items[:i], tl.Items[i+1:]...)
+            return nil
+        }
+    }
+    return fmt.Errorf("item with ID %d not found", id)
+}
+
+func (tl *TodoList) ListItems() {
+    if len(tl.Items) == 0 {
+        fmt.Println("No todo items found.")
+        return
+    }
+    
+    for _, item := range tl.Items {
+        status := "[ ]"
+        if item.Completed {
+            status = "[✓]"
+        }
+        fmt.Printf("%s %d: %s - %s\n", status, item.ID, item.Title, item.Description)
+    }
+}
+
+// TODO: Implement SaveToFile and LoadFromFile methods
+// TODO: Implement main function with CLI interface</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-level intermediate">Intermediate</div>
+                        <h3>Web Server with REST API</h3>
+                        <p>Build a RESTful web service with HTTP endpoints.</p>
+                        <div class="project-skills">
+                            <span class="skill-tag">HTTP Server</span>
+                            <span class="skill-tag">JSON API</span>
+                            <span class="skill-tag">Middleware</span>
+                            <span class="skill-tag">Routing</span>
+                        </div>
+                        <div class="project-details">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>GET /users - list all users</li>
+                                <li>POST /users - create new user</li>
+                                <li>GET /users/{id} - get specific user</li>
+                                <li>PUT /users/{id} - update user</li>
+                                <li>DELETE /users/{id} - delete user</li>
+                                <li>Middleware for logging and CORS</li>
+                            </ul>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span>server.go (starter)</span>
+                                    <button class="copy-btn" data-copy="server-project">Copy</button>
+                                </div>
+                                <pre><code id="server-project">package main
+
+import (
+    "encoding/json"
+    "fmt"
+    "log"
+    "net/http"
+    "strconv"
+    "sync"
+    "time"
+    
+    "github.com/gorilla/mux"
+)
+
+type User struct {
+    ID    int    `json:"id"`
+    Name  string `json:"name"`
+    Email string `json:"email"`
+}
+
+type UserStore struct {
+    mu     sync.RWMutex
+    users  map[int]User
+    nextID int
+}
+
+func NewUserStore() *UserStore {
+    return &UserStore{
+        users:  make(map[int]User),
+        nextID: 1,
+    }
+}
+
+func (s *UserStore) GetAll() []User {
+    s.mu.RLock()
+    defer s.mu.RUnlock()
+    
+    users := make([]User, 0, len(s.users))
+    for _, user := range s.users {
+        users = append(users, user)
+    }
+    return users
+}
+
+func (s *UserStore) GetByID(id int) (User, bool) {
+    s.mu.RLock()
+    defer s.mu.RUnlock()
+    
+    user, exists := s.users[id]
+    return user, exists
+}
+
+func (s *UserStore) Create(user User) User {
+    s.mu.Lock()
+    defer s.mu.Unlock()
+    
+    user.ID = s.nextID
+    s.nextID++
+    s.users[user.ID] = user
+    return user
+}
+
+// TODO: Implement Update and Delete methods
+// TODO: Implement HTTP handlers
+// TODO: Set up routes and middleware
+
+func main() {
+    store := NewUserStore()
+    
+    // Sample data
+    store.Create(User{Name: "John Doe", Email: "john@example.com"})
+    store.Create(User{Name: "Jane Smith", Email: "jane@example.com"})
+    
+    r := mux.NewRouter()
+    
+    // TODO: Set up routes
+    // r.HandleFunc("/users", getUsersHandler(store)).Methods("GET")
+    // r.HandleFunc("/users", createUserHandler(store)).Methods("POST")
+    
+    fmt.Println("Server starting on :8080")
+    log.Fatal(http.ListenAndServe(":8080", r))
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-level intermediate">Intermediate</div>
+                        <h3>Concurrent File Processor</h3>
+                        <p>Process multiple files concurrently using goroutines and channels.</p>
+                        <div class="project-skills">
+                            <span class="skill-tag">Concurrency</span>
+                            <span class="skill-tag">Channels</span>
+                            <span class="skill-tag">Worker Pools</span>
+                            <span class="skill-tag">File I/O</span>
+                        </div>
+                        <div class="project-details">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>Read multiple text files concurrently</li>
+                                <li>Count words, lines, and characters</li>
+                                <li>Use worker pool pattern</li>
+                                <li>Aggregate results from all files</li>
+                                <li>Handle errors gracefully</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-level advanced">Advanced</div>
+                        <h3>Chat Server with WebSockets</h3>
+                        <p>Real-time chat application using WebSockets and goroutines.</p>
+                        <div class="project-skills">
+                            <span class="skill-tag">WebSockets</span>
+                            <span class="skill-tag">Real-time</span>
+                            <span class="skill-tag">Concurrency</span>
+                            <span class="skill-tag">Broadcasting</span>
+                        </div>
+                        <div class="project-details">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>Multiple chat rooms</li>
+                                <li>User authentication</li>
+                                <li>Message broadcasting</li>
+                                <li>Connection management</li>
+                                <li>Web frontend</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-level advanced">Advanced</div>
+                        <h3>Microservice with Database</h3>
+                        <p>Build a microservice with database integration and Docker deployment.</p>
+                        <div class="project-skills">
+                            <span class="skill-tag">Database</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">Microservices</span>
+                            <span class="skill-tag">Testing</span>
+                        </div>
+                        <div class="project-details">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>PostgreSQL integration</li>
+                                <li>Database migrations</li>
+                                <li>Unit and integration tests</li>
+                                <li>Docker containerization</li>
+                                <li>Health checks and monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resources Tab -->
+            <div id="resources" class="tab-content">
+                <h2>Learning Resources</h2>
+                <p>Comprehensive collection of Go learning materials and tools.</p>
+                
+                <div class="resources-section">
+                    <div class="resource-category">
+                        <h3>📚 Official Documentation</h3>
+                        <div class="resource-list">
+                            <div class="resource-item">
+                                <h4><a href="https://golang.org/doc/" target="_blank">Go Documentation</a></h4>
+                                <p>Official Go language documentation and specifications.</p>
+                            </div>
+                            <div class="resource-item">
+                                <h4><a href="https://tour.golang.org/" target="_blank">A Tour of Go</a></h4>
+                                <p>Interactive tutorial covering Go fundamentals.</p>
+                            </div>
+                            <div class="resource-item">
+                                <h4><a href="https://golang.org/doc/effective_go.html" target="_blank">Effective Go</a></h4>
+                                <p>Best practices for writing clear, idiomatic Go code.</p>
+                            </div>
+                            <div class="resource-item">
+                                <h4><a href="https://pkg.go.dev/" target="_blank">Go Package Documentation</a></h4>
+                                <p>Complete reference for Go standard library and third-party packages.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resource-category">
+                        <h3>📖 Books</h3>
+                        <div class="resource-list">
+                            <div class="resource-item">
+                                <h4>The Go Programming Language</h4>
+                                <p>By Alan Donovan and Brian Kernighan - Comprehensive guide to Go.</p>
+                                <span class="resource-level">Beginner to Advanced</span>
+                            </div>
+                            <div class="resource-item">
+                                <h4>Go in Action</h4>
+                                <p>By William Kennedy, Brian Ketelsen, and Erik St. Martin - Practical Go development.</p>
+                                <span class="resource-level">Intermediate</span>
+                            </div>
+                            <div class="resource-item">
+                                <h4>Concurrency in Go</h4>
+                                <p>By Katherine Cox-Buday - Deep dive into Go's concurrency model.</p>
+                                <span class="resource-level">Advanced</span>
+                            </div>
+                            <div class="resource-item">
+                                <h4>Go Web Programming</h4>
+                                <p>By Sau Sheong Chang - Building web applications with Go.</p>
+                                <span class="resource-level">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resource-category">
+                        <h3>🎥 Video Courses</h3>
+                        <div class="resource-list">
+                            <div class="resource-item">
+                                <h4>Go: The Complete Developer's Guide (Udemy)</h4>
+                                <p>Comprehensive course covering Go from basics to advanced topics.</p>
+                                <span class="resource-level">All Levels</span>
+                            </div>
+                            <div class="resource-item">
+                                <h4>Gophercises</h4>
+                                <p>Free coding exercises to practice Go programming skills.</p>
+                                <span class="resource-level">Beginner to Intermediate</span>
+                            </div>
+                            <div class="resource-item">
+                                <h4>Building Modern Web Applications with Go</h4>
+                                <p>Focus on web development using Go and modern frameworks.</p>
+                                <span class="resource-level">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resource-category">
+                        <h3>🛠️ Tools and IDEs</h3>
+                        <div class="resource-list">
+                            <div class="resource-item">
+                                <h4>Visual Studio Code</h4>
+                                <p>Free editor with excellent Go extension support.</p>
+                                <div class="tool-extensions">
+                                    <span>Go Extension</span>
+                                    <span>Go Test Explorer</span>
+                                    <span>Go Outliner</span>
+                                </div>
+                            </div>
+                            <div class="resource-item">
+                                <h4>GoLand (JetBrains)</h4>
+                                <p>Professional IDE specifically designed for Go development.</p>
+                                <span class="resource-price">Paid</span>
+                            </div>
+                            <div class="resource-item">
+                                <h4>Go Tools</h4>
+                                <p>Essential command-line tools for Go development.</p>
+                                <div class="tool-list">
+                                    <code>go fmt</code> - Code formatting<br>
+                                    <code>go vet</code> - Static analysis<br>
+                                    <code>goimports</code> - Import management<br>
+                                    <code>golint</code> - Code linting<br>
+                                    <code>delve</code> - Debugger
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resource-category">
+                        <h3>🌐 Online Platforms</h3>
+                        <div class="resource-list">
+                            <div class="resource-item">
+                                <h4><a href="https://gobyexample.com/" target="_blank">Go by Example</a></h4>
+                                <p>Hands-on introduction to Go using annotated example programs.</p>
+                            </div>
+                            <div class="resource-item">
+                                <h4><a href="https://exercism.io/tracks/go" target="_blank">Exercism - Go Track</a></h4>
+                                <p>Practice exercises with mentor feedback.</p>
+                            </div>
+                            <div class="resource-item">
+                                <h4><a href="https://leetcode.com/" target="_blank">LeetCode</a></h4>
+                                <p>Algorithm and data structure problems with Go support.</p>
+                            </div>
+                            <div class="resource-item">
+                                <h4><a href="https://play.golang.org/" target="_blank">Go Playground</a></h4>
+                                <p>Online Go compiler and sharing platform.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resource-category">
+                        <h3>👥 Community</h3>
+                        <div class="resource-list">
+                            <div class="resource-item">
+                                <h4><a href="https://gophers.slack.com/" target="_blank">Gophers Slack</a></h4>
+                                <p>Active Go community with channels for beginners and experts.</p>
+                            </div>
+                            <div class="resource-item">
+                                <h4><a href="https://www.reddit.com/r/golang/" target="_blank">r/golang</a></h4>
+                                <p>Reddit community for Go discussions and news.</p>
+                            </div>
+                            <div class="resource-item">
+                                <h4><a href="https://golang.org/blog/" target="_blank">Go Blog</a></h4>
+                                <p>Official blog with announcements and technical articles.</p>
+                            </div>
+                            <div class="resource-item">
+                                <h4><a href="https://golangweekly.com/" target="_blank">Golang Weekly</a></h4>
+                                <p>Weekly newsletter with Go news and articles.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resource-category">
+                        <h3>📊 Practice Platforms</h3>
+                        <div class="resource-list">
+                            <div class="resource-item">
+                                <h4><a href="https://codewars.com/" target="_blank">Codewars</a></h4>
+                                <p>Coding challenges with Go support and community solutions.</p>
+                            </div>
+                            <div class="resource-item">
+                                <h4><a href="https://hackerrank.com/" target="_blank">HackerRank</a></h4>
+                                <p>Programming challenges and interview preparation.</p>
+                            </div>
+                            <div class="resource-item">
+                                <h4><a href="https://github.com/golang/go/wiki/CodeReviewComments" target="_blank">Go Code Review Comments</a></h4>
+                                <p>Common code review comments and best practices.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Practice Tab -->
             <div id="practice" class="tab-content">
                 <h2>Practice Exercises</h2>
-                <p>Test your Go knowledge with these interactive exercises.</p>
+                <p>Test your Go knowledge with these comprehensive interactive exercises.</p>
                 
+                <div class="difficulty-filter">
+                    <button class="filter-btn active" data-difficulty="all">All Levels</button>
+                    <button class="filter-btn" data-difficulty="beginner">Beginner</button>
+                    <button class="filter-btn" data-difficulty="intermediate">Intermediate</button>
+                    <button class="filter-btn" data-difficulty="advanced">Advanced</button>
+                </div>
+
                 <div class="exercises">
-                    <div class="exercise-card">
-                        <h3>Exercise 1: Function Signatures</h3>
-                        <p>Complete the function signature to add two integers:</p>
+                    <!-- Beginner Exercises -->
+                    <div class="exercise-card" data-difficulty="beginner">
+                        <div class="exercise-header">
+                            <h3>Exercise 1: Variable Declarations</h3>
+                            <span class="difficulty-badge beginner">Beginner</span>
+                        </div>
+                        <p>Which of the following is a valid way to declare a variable in Go?</p>
                         <div class="code-example">
-                            <pre><code>func add(a, b ____) ____ {
-    return a + b
-}</code></pre>
+                            <pre><code>// Option A
+var name string = "Go"
+
+// Option B  
+name := "Go"
+
+// Option C
+var name = "Go"
+
+// Option D
+All of the above</code></pre>
                         </div>
                         <div class="exercise-options">
-                            <button class="option-btn" data-exercise="0" data-option="0">int, int</button>
-                            <button class="option-btn" data-exercise="0" data-option="1">int, string</button>
-                            <button class="option-btn" data-exercise="0" data-option="2">string, int</button>
+                            <button class="option-btn" data-exercise="0" data-option="0">Option A only</button>
+                            <button class="option-btn" data-exercise="0" data-option="1">Option B only</button>
+                            <button class="option-btn" data-exercise="0" data-option="2">Option C only</button>
+                            <button class="option-btn" data-exercise="0" data-option="3">All of the above</button>
                         </div>
                         <div class="exercise-feedback" id="feedback-0"></div>
                     </div>
 
-                    <div class="exercise-card">
-                        <h3>Exercise 2: Code Output</h3>
+                    <div class="exercise-card" data-difficulty="beginner">
+                        <div class="exercise-header">
+                            <h3>Exercise 2: Function Return Values</h3>
+                            <span class="difficulty-badge beginner">Beginner</span>
+                        </div>
                         <p>What is the output of this code?</p>
                         <div class="code-example">
                             <pre><code>package main
 
 import "fmt"
 
+func getValue() (int, string) {
+    return 42, "answer"
+}
+
 func main() {
-    x := 5
-    if x > 3 {
-        fmt.Println("Hello")
-    } else {
-        fmt.Println("World")
-    }
+    num, text := getValue()
+    fmt.Printf("%d: %s", num, text)
 }</code></pre>
                         </div>
                         <div class="exercise-options">
-                            <button class="option-btn" data-exercise="1" data-option="0">Hello</button>
-                            <button class="option-btn" data-exercise="1" data-option="1">World</button>
-                            <button class="option-btn" data-exercise="1" data-option="2">Error</button>
+                            <button class="option-btn" data-exercise="1" data-option="0">42: answer</button>
+                            <button class="option-btn" data-exercise="1" data-option="1">answer: 42</button>
+                            <button class="option-btn" data-exercise="1" data-option="2">Compilation error</button>
+                            <button class="option-btn" data-exercise="1" data-option="3">42 answer</button>
                         </div>
                         <div class="exercise-feedback" id="feedback-1"></div>
                     </div>
 
-                    <div class="exercise-card">
-                        <h3>Exercise 3: Goroutines</h3>
-                        <p>Which keyword is used to create a goroutine?</p>
+                    <div class="exercise-card" data-difficulty="beginner">
+                        <div class="exercise-header">
+                            <h3>Exercise 3: Slice Operations</h3>
+                            <span class="difficulty-badge beginner">Beginner</span>
+                        </div>
+                        <p>What will be the length of the slice after these operations?</p>
                         <div class="code-example">
-                            <pre><code>// Start a goroutine
-____ myFunction()</code></pre>
+                            <pre><code>package main
+
+func main() {
+    slice := []int{1, 2, 3}
+    slice = append(slice, 4, 5)
+    slice = slice[1:4]
+    // What is len(slice)?
+}</code></pre>
                         </div>
                         <div class="exercise-options">
-                            <button class="option-btn" data-exercise="2" data-option="0">go</button>
-                            <button class="option-btn" data-exercise="2" data-option="1">async</button>
-                            <button class="option-btn" data-exercise="2" data-option="2">thread</button>
+                            <button class="option-btn" data-exercise="2" data-option="0">2</button>
+                            <button class="option-btn" data-exercise="2" data-option="1">3</button>
+                            <button class="option-btn" data-exercise="2" data-option="2">4</button>
+                            <button class="option-btn" data-exercise="2" data-option="3">5</button>
                         </div>
                         <div class="exercise-feedback" id="feedback-2"></div>
+                    </div>
+
+                    <div class="exercise-card" data-difficulty="intermediate">
+                        <div class="exercise-header">
+                            <h3>Exercise 4: Interface Implementation</h3>
+                            <span class="difficulty-badge intermediate">Intermediate</span>
+                        </div>
+                        <p>Which statement about Go interfaces is correct?</p>
+                        <div class="code-example">
+                            <pre><code>type Writer interface {
+    Write([]byte) (int, error)
+}
+
+type MyWriter struct{}
+
+func (mw MyWriter) Write(data []byte) (int, error) {
+    return len(data), nil
+}</code></pre>
+                        </div>
+                        <div class="exercise-options">
+                            <button class="option-btn" data-exercise="3" data-option="0">MyWriter must explicitly declare it implements Writer</button>
+                            <button class="option-btn" data-exercise="3" data-option="1">MyWriter automatically implements Writer</button>
+                            <button class="option-btn" data-exercise="3" data-option="2">MyWriter cannot implement Writer without inheritance</button>
+                            <button class="option-btn" data-exercise="3" data-option="3">This code will not compile</button>
+                        </div>
+                        <div class="exercise-feedback" id="feedback-3"></div>
+                    </div>
+
+                    <div class="exercise-card" data-difficulty="intermediate">
+                        <div class="exercise-header">
+                            <h3>Exercise 5: Goroutines and Channels</h3>
+                            <span class="difficulty-badge intermediate">Intermediate</span>
+                        </div>
+                        <p>What happens when this code runs?</p>
+                        <div class="code-example">
+                            <pre><code>package main
+
+import "fmt"
+
+func main() {
+    ch := make(chan int, 2)
+    ch <- 1
+    ch <- 2
+    ch <- 3
+    fmt.Println(<-ch)
+}</code></pre>
+                        </div>
+                        <div class="exercise-options">
+                            <button class="option-btn" data-exercise="4" data-option="0">Prints 1 and exits</button>
+                            <button class="option-btn" data-exercise="4" data-option="1">Prints 1, 2, 3</button>
+                            <button class="option-btn" data-exercise="4" data-option="2">Deadlock error</button>
+                            <button class="option-btn" data-exercise="4" data-option="3">Compilation error</button>
+                        </div>
+                        <div class="exercise-feedback" id="feedback-4"></div>
+                    </div>
+
+                    <div class="exercise-card" data-difficulty="intermediate">
+                        <div class="exercise-header">
+                            <h3>Exercise 6: Error Handling</h3>
+                            <span class="difficulty-badge intermediate">Intermediate</span>
+                        </div>
+                        <p>What is the best practice for this function?</p>
+                        <div class="code-example">
+                            <pre><code>func processFile(filename string) error {
+    file, err := os.Open(filename)
+    if err != nil {
+        return err
+    }
+    // Process file...
+    return nil
+}</code></pre>
+                        </div>
+                        <div class="exercise-options">
+                            <button class="option-btn" data-exercise="5" data-option="0">Add defer file.Close()</button>
+                            <button class="option-btn" data-exercise="5" data-option="1">Use panic instead of returning error</button>
+                            <button class="option-btn" data-exercise="5" data-option="2">Ignore the error</button>
+                            <button class="option-btn" data-exercise="5" data-option="3">The code is perfect as-is</button>
+                        </div>
+                        <div class="exercise-feedback" id="feedback-5"></div>
+                    </div>
+
+                    <div class="exercise-card" data-difficulty="advanced">
+                        <div class="exercise-header">
+                            <h3>Exercise 7: Context and Cancellation</h3>
+                            <span class="difficulty-badge advanced">Advanced</span>
+                        </div>
+                        <p>What is the purpose of context.Context in Go?</p>
+                        <div class="code-example">
+                            <pre><code>func processWithTimeout(ctx context.Context) error {
+    select {
+    case <-time.After(5 * time.Second):
+        return errors.New("processing complete")
+    case <-ctx.Done():
+        return ctx.Err()
+    }
+}</code></pre>
+                        </div>
+                        <div class="exercise-options">
+                            <button class="option-btn" data-exercise="6" data-option="0">Only for HTTP requests</button>
+                            <button class="option-btn" data-exercise="6" data-option="1">Cancellation, deadlines, and request-scoped values</button>
+                            <button class="option-btn" data-exercise="6" data-option="2">Only for database connections</button>
+                            <button class="option-btn" data-exercise="6" data-option="3">Only for logging</button>
+                        </div>
+                        <div class="exercise-feedback" id="feedback-6"></div>
+                    </div>
+
+                    <div class="exercise-card" data-difficulty="advanced">
+                        <div class="exercise-header">
+                            <h3>Exercise 8: Memory Management</h3>
+                            <span class="difficulty-badge advanced">Advanced</span>
+                        </div>
+                        <p>Which statement about Go's memory management is correct?</p>
+                        <div class="exercise-options">
+                            <button class="option-btn" data-exercise="7" data-option="0">Go has manual memory management like C</button>
+                            <button class="option-btn" data-exercise="7" data-option="1">Go uses reference counting for garbage collection</button>
+                            <button class="option-btn" data-exercise="7" data-option="2">Go uses a concurrent, tri-color mark-and-sweep GC</button>
+                            <button class="option-btn" data-exercise="7" data-option="3">Go never frees memory automatically</button>
+                        </div>
+                        <div class="exercise-feedback" id="feedback-7"></div>
+                    </div>
+
+                    <!-- Coding Challenges -->
+                    <div class="coding-challenges">
+                        <h3>🎯 Coding Challenges</h3>
+                        
+                        <div class="challenge-card" data-difficulty="beginner">
+                            <div class="challenge-header">
+                                <h4>Challenge 1: FizzBuzz</h4>
+                                <span class="difficulty-badge beginner">Beginner</span>
+                            </div>
+                            <p>Write a program that prints numbers 1-100, but prints "Fizz" for multiples of 3, "Buzz" for multiples of 5, and "FizzBuzz" for multiples of both.</p>
+                            <div class="challenge-template">
+                                <textarea class="code-input" placeholder="Write your Go code here...
+package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Your code here
+}"></textarea>
+                                <button class="run-code-btn">Run Code</button>
+                                <div class="code-output"></div>
+                            </div>
+                        </div>
+
+                        <div class="challenge-card" data-difficulty="intermediate">
+                            <div class="challenge-header">
+                                <h4>Challenge 2: Word Counter</h4>
+                                <span class="difficulty-badge intermediate">Intermediate</span>
+                            </div>
+                            <p>Create a function that counts the frequency of each word in a given text and returns a map.</p>
+                            <div class="challenge-template">
+                                <textarea class="code-input" placeholder="Write your Go code here...
+package main
+
+import &quot;fmt&quot;
+
+func countWords(text string) map[string]int {
+    // Your implementation here
+}
+
+func main() {
+    text := &quot;hello world hello&quot;
+    result := countWords(text)
+    fmt.Println(result) // Should print: map[hello:2 world:1]
+}"></textarea>
+                                <button class="run-code-btn">Run Code</button>
+                                <div class="code-output"></div>
+                            </div>
+                        </div>
+
+                        <div class="challenge-card" data-difficulty="advanced">
+                            <div class="challenge-header">
+                                <h4>Challenge 3: Concurrent Sum</h4>
+                                <span class="difficulty-badge advanced">Advanced</span>
+                            </div>
+                            <p>Calculate the sum of numbers 1-1000000 using multiple goroutines and channels.</p>
+                            <div class="challenge-template">
+                                <textarea class="code-input" placeholder="Write your Go code here...
+package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Use goroutines to calculate sum of 1-1000000
+    // Your implementation here
+}"></textarea>
+                                <button class="run-code-btn">Run Code</button>
+                                <div class="code-output"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="practice-summary">
                     <h3>Your Progress</h3>
-                    <div class="score-display">
-                        <span>Score: <span id="score">0</span> / 3</span>
+                    <div class="progress-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Multiple Choice Score:</span>
+                            <span class="stat-value"><span id="mc-score">0</span> / 8</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Challenges Completed:</span>
+                            <span class="stat-value"><span id="challenge-score">0</span> / 3</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Overall Progress:</span>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" id="overall-progress"></div>
+                            </div>
+                        </div>
                     </div>
-                    <button class="btn btn--primary" onclick="resetExercises()">Reset Exercises</button>
+                    <button class="btn btn--primary" onclick="resetAllExercises()">Reset All Exercises</button>
                 </div>
             </div>
         </main>
